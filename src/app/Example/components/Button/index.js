@@ -1,30 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+// @flow
+
+import * as React from 'react';
 import styles from './index.scss';
 
-const Button = props => (
-    <button className={styles.button} {...props}>
-        {props.image &&
-            <img
-                src={props.image}
-                alt="button"
-                className={styles.image}
-            />
-        }
-        {props.children}
-    </button>
-);
-
-Button.propTypes = {
-    image: PropTypes.string,
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]).isRequired,
+type PropTypes = {
+  image: string,
+  children: React.Node,
 };
 
-Button.defaultProps = {
-    image: '',
+const Button = (props: PropTypes) => {
+  const { button: buttonStyle, image: imageStyle } = styles;
+  const { image, children } = props;
+
+  return (
+    <button type="button" className={buttonStyle} {...props}>
+      {Boolean(image) && (
+        <img src={image} alt="button" className={imageStyle} />
+      )}
+      {children}
+    </button>
+  );
 };
 
 export default Button;

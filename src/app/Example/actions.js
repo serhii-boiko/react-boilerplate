@@ -1,22 +1,23 @@
-import {
-    ADD,
-    ADD_SUCCESS,
-    REMOVE,
-    REMOVE_SUCCESS,
-} from './actionTypes';
+import { ADD, ADD_SUCCESS, REMOVE, REMOVE_SUCCESS } from './actionTypes';
 
 export const add = () => ({
-    type: ADD,
+  type: ADD,
 });
 
 export const addSuccess = () => ({
-    type: ADD_SUCCESS,
+  type: ADD_SUCCESS,
 });
 
 export const remove = () => ({
-    type: REMOVE,
+  type: REMOVE,
 });
 
 export const removeSuccess = () => ({
-    type: REMOVE_SUCCESS,
+  type: REMOVE_SUCCESS,
 });
+
+export type Action =
+  | { type: ADD }
+  | { type: ADD_SUCCESS }
+  | { type: REMOVE }
+  | { type: REMOVE_SUCCESS };

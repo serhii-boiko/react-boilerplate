@@ -1,10 +1,6 @@
 import { all } from 'redux-saga/effects';
-import Example from '@/app/Example';
-
-const { sagas: exampleSagas } = Example;
+import { sagas as exampleSagas } from '@/app/Example';
 
 export default function* rootSaga() {
-    yield all([
-        exampleSagas(),
-    ]);
+  yield all([exampleSagas()]);
 }

@@ -6,10 +6,10 @@ export const mediaLarge = '@media all and (min-width: 1200px)';
 export const mediaExtraLarge = '@media all and (min-width: 1800px)';
 
 export default {
-    NAME,
-    mediaExtraSmall,
-    mediaSmall,
-    mediaMedium,
-    mediaLarge,
-    mediaExtraLarge,
+  NAME,
+  mediaExtraSmall,
+  mediaSmall,
+  mediaMedium,
+  mediaLarge,
+  mediaExtraLarge,
 };

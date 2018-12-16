@@ -1,16 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { Children } from 'react';
 import styles from './index.scss';
 
-const Value = props => (
-    <div className={styles.value} {...props}>{props.children}</div>
-);
+type PropTypes = {
+  children: Children,
+};
 
-Value.propTypes = {
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]).isRequired,
+const Value = (props: PropTypes) => {
+  const { children } = props;
+
+  return (
+    <div className={styles.value} {...props}>
+      {children}
+    </div>
+  );
 };
 
 export default Value;

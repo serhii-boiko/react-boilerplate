@@ -1,10 +1,22 @@
 import * as actions from './actions';
 import * as constants from './constants';
-import components from './components';
-import containers from './containers';
+
+import * as components from './components';
+import * as containers from './containers';
+
+import router from './router';
 import reducer from './reducer';
 import sagas from './sagas';
 
-export default {
-    actions, components, containers, reducer, constants, sagas,
+import type { State } from './state';
+
+export {
+  actions,
+  components,
+  containers,
+  router,
+  reducer,
+  constants,
+  sagas,
+  State,
 };
