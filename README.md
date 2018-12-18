@@ -2,6 +2,10 @@
 
 [![Dependencies](https://david-dm.org/Serhii-Boiko/react-boilerplate.svg)](https://Serhii-Boiko/react-boilerplate/)
 
+##### ToDo list
+- [ ] Add lazy load React components
+- [ ] Add environment variables
+
 ### Get Started
     sudo apt-get update && sudo apt-get install yarn
     yarn
