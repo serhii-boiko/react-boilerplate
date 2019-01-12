@@ -5,6 +5,7 @@
 ##### ToDo list
 - [ ] Add lazy load React components
 - [ ] Add environment variables
+- [ ] ReSelect
 
 ### Get Started
     sudo apt-get update && sudo apt-get install yarn
