@@ -5,7 +5,7 @@ import { ADD, REMOVE } from './actionTypes';
 import { addSuccess, removeSuccess } from './actions';
 
 const asyncAdd = async () => {
-  await new Promise(resolve => {
+  await new Promise((resolve) => {
     setTimeout(() => {
       resolve();
     }, 500);
@@ -13,7 +13,7 @@ const asyncAdd = async () => {
 };
 
 const asyncRemove = async () => {
-  await new Promise(resolve => {
+  await new Promise((resolve) => {
     setTimeout(() => {
       resolve();
     }, 500);

@@ -9,6 +9,33 @@ function resolve(dir) {
   return path.join(__dirname, '..', '..', dir);
 }
 
+const REACT_APP = /^REACT_APP_/i;
+
+function getClientEnvironment() {
+  const raw = Object.keys(process.env)
+    .filter(key => REACT_APP.test(key))
+    .reduce(
+      (env, key) => {
+        env[key] = process.env[key];
+        return env;
+      },
+      {
+        NODE_ENV: process.env.NODE_ENV || 'development',
+      }
+    );
+
+  return {
+    'process.env': Object.keys(raw).reduce((env, key) => {
+      env[key] = JSON.stringify(raw[key]);
+      return env;
+    }, {}),
+  };
+}
+
+require('dotenv').config({path: resolve('.env')});
+
+const env = getClientEnvironment();
+
 module.exports = {
   resolve: {
     alias: {
@@ -51,10 +78,6 @@ module.exports = {
     new SimpleProgressWebpackPlugin({
       format: 'minimal',
     }),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-    }),
+    new webpack.DefinePlugin(env),
   ],
 };

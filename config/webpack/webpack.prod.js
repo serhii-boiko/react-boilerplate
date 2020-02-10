@@ -2,7 +2,7 @@ const path = require('path');
 const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const resolve = dir => path.join(__dirname, '..', '..', dir);
@@ -12,7 +12,7 @@ module.exports = merge(baseWebpackConfig, {
   devtool: 'source-map',
   cache: false,
   bail: true,
-  entry: ['@babel/polyfill', resolve('./src/index.js')],
+  entry: [resolve('./src/index.js')],
   output: {
     path: resolve('./dist/assets'),
     filename: '[name].[hash].bundle.js',
@@ -65,8 +65,9 @@ module.exports = merge(baseWebpackConfig, {
     ],
   },
   optimization: {
+    minimize: true,
     minimizer: [
-      new UglifyJsPlugin({
+      new TerserPlugin({
         cache: true,
         parallel: true,
         sourceMap: true, // set to true if you want JS source maps

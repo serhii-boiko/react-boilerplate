@@ -1,25 +1,32 @@
-// @flow
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Switch, Route } from 'react-router-dom';
+import { withRouter, BrowserRouter, Route } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import AppLocale from '@/common/languageProvider';
-import { router as ExampleRouter } from '@/app/Example';
+import PropTypes from 'prop-types';
 
-const Router = ({ locale }: { locale: { locale: string } }) => {
+const ExampleRouter = lazy(() => import('@/app/Example/router'));
+
+const Router = ({ locale }) => {
+  console.log(locale);
   const defaultLocale = 'en';
   const currentAppLocale = AppLocale[locale.locale] || AppLocale[defaultLocale];
 
   return (
-    <IntlProvider
-      locale={currentAppLocale.locale}
-      messages={currentAppLocale.messages}
-    >
-      <Switch>
-        <Route exact path="/" component={ExampleRouter} />
-      </Switch>
+    <IntlProvider locale={currentAppLocale.locale} messages={currentAppLocale.messages}>
+      <BrowserRouter>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Route exact path="/" component={ExampleRouter} />
+        </Suspense>
+      </BrowserRouter>
     </IntlProvider>
   );
+};
+
+Router.propTypes = {
+  locale: PropTypes.shape({
+    locale: PropTypes.string,
+  }),
 };
 
 const mapStateToProps = ({ settings }) => {
@@ -29,9 +36,4 @@ const mapStateToProps = ({ settings }) => {
   };
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {},
-  )(Router),
-);
+export default withRouter(connect(mapStateToProps, {})(Router));

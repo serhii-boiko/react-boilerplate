@@ -1,25 +1,18 @@
-// @flow
+import React from 'react';
+import { ButtonSC, ImageSC } from './styles';
+import PropTypes from 'prop-types';
 
-import * as React from 'react';
-import styles from './index.scss';
+const Button = ({ image, children, onClick }) => (
+  <ButtonSC type="button" onClick={onClick}>
+    {Boolean(image) && <ImageSC src={image} alt="button" />}
+    {children}
+  </ButtonSC>
+);
 
-type PropTypes = {
-  image: string,
-  children: React.Node,
-};
-
-const Button = (props: PropTypes) => {
-  const { button: buttonStyle, image: imageStyle } = styles;
-  const { image, children } = props;
-
-  return (
-    <button type="button" className={buttonStyle} {...props}>
-      {Boolean(image) && (
-        <img src={image} alt="button" className={imageStyle} />
-      )}
-      {children}
-    </button>
-  );
+Button.propTypes = {
+  image: PropTypes.string,
+  children: PropTypes.element,
+  onClick: PropTypes.func,
 };
 
 export default Button;

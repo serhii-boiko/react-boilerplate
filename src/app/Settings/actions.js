@@ -12,7 +12,3 @@ export function changeDisplayResolution() {
     type: CHANGE_DISPLAY_RESOLUTION,
   };
 }
-
-export type Action =
-  | { type: SWITCH_LANGUAGE, payload: object }
-  | { type: CHANGE_DISPLAY_RESOLUTION };

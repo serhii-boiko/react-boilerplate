@@ -15,9 +15,3 @@ export const remove = () => ({
 export const removeSuccess = () => ({
   type: REMOVE_SUCCESS,
 });
-
-export type Action =
-  | { type: ADD }
-  | { type: ADD_SUCCESS }
-  | { type: REMOVE }
-  | { type: REMOVE_SUCCESS };

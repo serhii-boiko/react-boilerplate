@@ -1,21 +1,21 @@
-// @flow
-import React from 'react';
 import { hot } from 'react-hot-loader';
+import React from 'react';
 import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 import Router from '@/app/router';
-import type { Store } from '@/store/rootReducer';
+import PropTypes from 'prop-types';
 
-type History = {
-  [key: any]: any,
-};
-
-const App = ({ store, history }: { store: Store, history: History }) => (
+const App = ({ store, history }) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Router />
     </ConnectedRouter>
   </Provider>
 );
+
+App.propTypes = {
+  store: PropTypes.object,
+  history: PropTypes.object,
+};
 
 export default hot(module)(App);

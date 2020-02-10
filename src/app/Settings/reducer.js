@@ -1,19 +1,17 @@
-// @flow
-
 import { SWITCH_LANGUAGE } from './actionTypes';
-import { initState } from './state';
-import type { State } from './state';
-import type { Action } from './actions';
+import { createReducer } from '@/common/utils/store';
 
-export default (state: State = initState, action: Action): State => {
-  switch (action.type) {
-    case SWITCH_LANGUAGE: {
-      return {
-        ...state,
-        locale: action.payload,
-      };
-    }
-    default:
-      return state;
-  }
+const initState = {
+  locale: {
+    languageId: 'english',
+    locale: 'en',
+    name: 'English',
+    icon: 'us',
+  },
 };
+
+const reducer = {
+  [SWITCH_LANGUAGE]: (state, action) => ({ ...state, locale: action.payload }),
+};
+
+export default (state = initState, action) => createReducer(reducer, state, action);

@@ -22,7 +22,6 @@ module.exports = merge(baseWebpackConfig, {
   },
   context: resolve('./src'),
   entry: [
-    '@babel/polyfill',
     'webpack/hot/only-dev-server',
     resolve('./src/index.js'),
   ],
@@ -43,6 +42,11 @@ module.exports = merge(baseWebpackConfig, {
             cacheDirectory: true,
           },
         },
+      },
+      {
+        test: /\.(js|jsx)$/,
+        use: 'react-hot-loader/webpack',
+        include: /node_modules/
       },
       {
         test: /^.((?!cssmodule).)*\.css$/,

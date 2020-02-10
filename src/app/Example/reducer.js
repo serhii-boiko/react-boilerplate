@@ -1,27 +1,22 @@
-// @flow
+import { ADD_SUCCESS, REMOVE_SUCCESS } from './actionTypes';
+import { reHydrateState } from '@/store/middleware/localstore';
+import { createReducer } from '@/common/utils/store';
 
-import { ADD, ADD_SUCCESS, REMOVE, REMOVE_SUCCESS } from './actionTypes';
-import { initState } from './state';
-import type { State } from './state';
-import type { Action } from './actions';
-
-export default (state: State = initState, action: Action): State => {
-  switch (action.type) {
-    case REMOVE_SUCCESS: {
-      return {
-        ...state,
-        value: state.value - 1,
-      };
-    }
-    case ADD_SUCCESS: {
-      return {
-        ...state,
-        value: state.value + 1,
-      };
-    }
-    case REMOVE:
-    case ADD:
-    default:
-      return state;
-  }
+const defaultState = {
+  value: 0,
 };
+
+const initState = reHydrateState(defaultState, {
+  value: (initialState, value) => {
+    initialState.value = value;
+
+    return initialState;
+  },
+});
+
+const reducer = {
+  [REMOVE_SUCCESS]: (state) => ({ ...state, value: state.value - 1 }),
+  [ADD_SUCCESS]: (state) => ({ ...state, value: state.value + 1 }),
+};
+
+export default (state = initState, action) => createReducer(reducer, state, action);

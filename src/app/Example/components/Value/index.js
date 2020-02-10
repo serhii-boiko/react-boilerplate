@@ -1,19 +1,11 @@
 import React from 'react';
-import type { Children } from 'react';
-import styles from './index.scss';
+import { ValueSC } from './styles';
+import PropTypes from 'prop-types';
 
-type PropTypes = {
-  children: Children,
-};
+const Value = ({ children }) => <ValueSC>{children}</ValueSC>;
 
-const Value = (props: PropTypes) => {
-  const { children } = props;
-
-  return (
-    <div className={styles.value} {...props}>
-      {children}
-    </div>
-  );
+Value.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.element]),
 };
 
 export default Value;
