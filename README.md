@@ -1,6 +1,6 @@
 ### React Boilerplate - start React project in one second
 
-[![Dependencies](https://david-dm.org/Serhii-Boiko/react-boilerplate.svg)](https://Serhii-Boiko/react-boilerplate/)
+[![Dependencies](https://david-dm.org/Serhii-Boiko/react-boilerplate.svg)](https://github.com/Serhii-Boiko/react-boilerplate)
 
 ### Get Started
     sudo apt-get update && sudo apt-get install yarn
