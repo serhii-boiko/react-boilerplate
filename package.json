@@ -9,7 +9,7 @@
     "url": "git://github.com/Serhii-Boiko/react-boilerplate.git"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "connected-react-router": "^6.7.0",
     "history": "^4.10.1",
     "prop-types": "^15.7.2",
