@@ -1,9 +1,7 @@
-const path = require('path');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const webpack = require('webpack');
 const baseWebpackConfig = require('./webpack.base.js');
-
-const resolve = dir => path.join(__dirname, '..', '..', dir);
+const { resolve } = require('./utils');
 
 module.exports = merge(baseWebpackConfig, {
   mode: 'development',
@@ -63,7 +61,7 @@ module.exports = merge(baseWebpackConfig, {
       },
       {
         test: /^.((?!cssmodule).)*\.(sass|scss)$/,
-        loaders: [
+        use: [
           { loader: 'style-loader' },
           {
             loader: 'css-loader',

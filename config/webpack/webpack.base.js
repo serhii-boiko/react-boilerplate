@@ -1,36 +1,9 @@
-const path = require('path');
 const webpack = require('webpack');
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-
-function resolve(dir) {
-  return path.join(__dirname, '..', '..', dir);
-}
-
-const REACT_APP = /^REACT_APP_/i;
-
-function getClientEnvironment() {
-  const raw = Object.keys(process.env)
-    .filter(key => REACT_APP.test(key))
-    .reduce(
-      (env, key) => {
-        env[key] = process.env[key];
-        return env;
-      },
-      {
-        NODE_ENV: process.env.NODE_ENV || 'development',
-      }
-    );
-
-  return {
-    'process.env': Object.keys(raw).reduce((env, key) => {
-      env[key] = JSON.stringify(raw[key]);
-      return env;
-    }, {}),
-  };
-}
+const { resolve, getClientEnvironment } = require('./utils');
 
 require('dotenv').config({path: resolve('.env')});
 
@@ -59,7 +32,7 @@ module.exports = {
         test: /\.(png|jpg|gif|mp4|ogg|svg|woff|woff2|ttf|eot|ico)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[hash].[ext]',
+          name: '[name].[contenthash].[ext]',
           outputPath: 'images/',
         },
       },

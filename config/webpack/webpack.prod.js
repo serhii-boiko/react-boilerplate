@@ -1,11 +1,9 @@
-const path = require('path');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-
-const resolve = dir => path.join(__dirname, '..', '..', dir);
+const { resolve } = require('./utils')
 
 module.exports = merge(baseWebpackConfig, {
   mode: 'production',
@@ -15,9 +13,9 @@ module.exports = merge(baseWebpackConfig, {
   entry: [resolve('./src/index.js')],
   output: {
     path: resolve('./dist/assets'),
-    filename: '[name].[hash].bundle.js',
+    filename: '[name].[contenthash].bundle.js',
     publicPath: '/assets/',
-    chunkFilename: 'chunksJS/[id].[name].[hash].chunk.js',
+    chunkFilename: 'chunksJS/[id].[name].[contenthash].chunk.js',
   },
   module: {
     rules: [
@@ -25,7 +23,7 @@ module.exports = merge(baseWebpackConfig, {
         test: /\.(png|jpg|gif|mp4|ogg|svg|woff|woff2|ttf|eot|ico)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[hash].[ext]',
+          name: '[name].[contenthash].[ext]',
           outputPath: 'images/',
         },
       },
@@ -68,14 +66,12 @@ module.exports = merge(baseWebpackConfig, {
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        cache: true,
         parallel: true,
-        sourceMap: true, // set to true if you want JS source maps
       }),
       new OptimizeCSSAssetsPlugin({}),
     ],
     runtimeChunk: false,
-    namedModules: true,
+    moduleIds: 'named',
     splitChunks: {
       cacheGroups: {
         commons: {
@@ -88,8 +84,8 @@ module.exports = merge(baseWebpackConfig, {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: 'chunksCSS/[id].[name].[hash].chunk.css',
+      filename: '[name].[contenthash].css',
+      chunkFilename: 'chunksCSS/[id].[name].[contenthash].chunk.css',
     }),
   ],
   performance: {

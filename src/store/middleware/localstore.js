@@ -1,24 +1,26 @@
 const LOCAL_STORE_KEY = 'react-app-store';
 
-export const localStorageMiddleware = (serializer) => ({ getState }) => {
-  return (next) => (action) => {
-    const result = next(action);
-    const store = getState();
-    const keys = Object.keys(serializer);
+export const localStorageMiddleware =
+  (serializer) =>
+  ({ getState }) => {
+    return (next) => (action) => {
+      const result = next(action);
+      const store = getState();
+      const keys = Object.keys(serializer);
 
-    const localStoreData = keys.reduce((acc, key) => {
-      const getter = serializer[key];
-      if (getter) {
-        acc[key] = getter(store);
-      }
-      return acc;
-    }, {});
+      const localStoreData = keys.reduce((acc, key) => {
+        const getter = serializer[key];
+        if (getter) {
+          acc[key] = getter(store);
+        }
+        return acc;
+      }, {});
 
-    localStorage.setItem(LOCAL_STORE_KEY, JSON.stringify(localStoreData));
+      localStorage.setItem(LOCAL_STORE_KEY, JSON.stringify(localStoreData));
 
-    return result;
+      return result;
+    };
   };
-};
 
 export const reHydrateState = (initState, deserializer = {}) => {
   const deserializerKeys = Object.keys(deserializer);
