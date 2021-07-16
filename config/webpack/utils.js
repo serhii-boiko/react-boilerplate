@@ -6,6 +6,39 @@ function resolve(dir) {
   return path.join(__dirname, '..', '..', dir);
 }
 
+function addSlash(str) {
+  return str.endsWith('/') ? str : str + '/'
+}
+
+function getPublicUrlOrPath(isEnvDevelopment, envPublicUrl) {
+  const stubDomain = 'https://github.com';
+
+  if (envPublicUrl) {
+    envPublicUrl = addSlash(envPublicUrl)
+
+    const validPublicUrl = new URL(envPublicUrl, stubDomain);
+
+    if (isEnvDevelopment) {
+      if (envPublicUrl.startsWith('.')) {
+        return '/assets/';
+      }
+
+      return validPublicUrl.pathname;
+    }
+
+    return envPublicUrl;
+  }
+
+  return '/assets/';
+}
+
+function publicUrlOrPath(){
+  return getPublicUrlOrPath(
+    process.env.NODE_ENV === 'development',
+    process.env.PUBLIC_URL
+  );
+}
+
 function getClientEnvironment() {
   const raw = Object.keys(process.env)
     .filter(key => REACT_APP.test(key))
@@ -31,4 +64,5 @@ function getClientEnvironment() {
 module.exports = {
   resolve,
   getClientEnvironment,
+  publicUrlOrPath,
 }

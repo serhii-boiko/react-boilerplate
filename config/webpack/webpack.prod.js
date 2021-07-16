@@ -3,7 +3,7 @@ const baseWebpackConfig = require('./webpack.base.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const { resolve } = require('./utils')
+const { resolve, publicUrlOrPath } = require('./utils')
 
 module.exports = merge(baseWebpackConfig, {
   mode: 'production',
@@ -14,19 +14,11 @@ module.exports = merge(baseWebpackConfig, {
   output: {
     path: resolve('./dist/assets'),
     filename: '[name].[contenthash].bundle.js',
-    publicPath: '/assets/',
+    publicPath: publicUrlOrPath(),
     chunkFilename: 'chunksJS/[id].[name].[contenthash].chunk.js',
   },
   module: {
     rules: [
-      {
-        test: /\.(png|jpg|gif|mp4|ogg|svg|woff|woff2|ttf|eot|ico)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[contenthash].[ext]',
-          outputPath: 'images/',
-        },
-      },
       {
         test: /\.js$/,
         exclude: /node_modules/,

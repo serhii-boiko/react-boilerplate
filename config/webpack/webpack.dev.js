@@ -1,7 +1,7 @@
 const { merge } = require('webpack-merge');
 const webpack = require('webpack');
 const baseWebpackConfig = require('./webpack.base.js');
-const { resolve } = require('./utils');
+const { resolve, publicUrlOrPath } = require('./utils');
 
 module.exports = merge(baseWebpackConfig, {
   mode: 'development',
@@ -12,7 +12,7 @@ module.exports = merge(baseWebpackConfig, {
   },
   devServer: {
     contentBase: [resolve('./dist/'), resolve('./src/')],
-    publicPath: '/assets/',
+    publicPath: publicUrlOrPath(),
     historyApiFallback: true,
     inline: true,
     hot: true,
